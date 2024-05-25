@@ -39,12 +39,12 @@ From Terraform folder
 
 ```
 terraform init
-terraform plan -target module.aws_k8s
+terraform plan
 ```
 
 Create EKS Cluster
 
-> terraform apply -target module.aws_k8s
+> terraform apply
 
 Run Export from output
 

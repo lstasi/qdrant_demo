@@ -8,5 +8,8 @@ output "domain" {
   value = aws_cognito_user_pool_domain.main.domain
 }
 output "callback_urls" {
-  value = var.callback_urls
+  value = ["http://${local.hostname}/auth/callback","http://localhost:8000/auth/callback"]
+}
+output "load_balancer_hostname" {
+  value = local.hostname
 }
