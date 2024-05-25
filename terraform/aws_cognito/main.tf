@@ -1,13 +1,3 @@
-data "kubernetes_service" "istio-ingressgateway" {
-  metadata {
-    name      = "istio-ingressgateway"
-    namespace = "istio-system"
-  }
-}
-locals {
-  hostname = data.kubernetes_service.istio-ingressgateway.status[0].load_balancer[0].ingress[0].hostname
-}
-
 resource "aws_cognito_user_pool_domain" "main" {
   domain       = "${var.name}"
   user_pool_id = aws_cognito_user_pool.user_pool.id
@@ -40,8 +30,8 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
 
   supported_identity_providers = ["COGNITO"]
 
-  callback_urls = ["http://localhost:8000/auth/callback", "https://${local.hostname}/auth/callback"]
-  logout_urls   = ["http://localhost:8000/auth/logout", "https://${local.hostname}/auth/logout"]
+  callback_urls = ["http://localhost:8000/auth/callback"]
+  logout_urls   = ["http://localhost:8000/auth/logout"]
 
   allowed_oauth_flows                  = ["implicit"]
   allowed_oauth_scopes                 = ["email", "openid", "profile"]

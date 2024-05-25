@@ -12,8 +12,3 @@ module "helm_module" {
   replicaCount = 3
   depends_on = [module.aws_k8s]
 }*/
-module "cognito" {
-  source     = "./aws_cognito"
-  name       = var.name
-  depends_on = [module.aws_k8s]
-}
