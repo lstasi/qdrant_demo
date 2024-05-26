@@ -4,7 +4,7 @@ output "resource_group_name" {
   value       = azurerm_resource_group.rg.name
 }
 
-output "aks_cluster_name" {
+output "azurerm_kubernetes_cluster" {
   description = "The name of the AKS cluster"
-  value       = azurerm_kubernetes_cluster.aks.name
+  value       = azurerm_kubernetes_cluster.cluster.name
 }

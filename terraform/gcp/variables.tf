@@ -9,3 +9,14 @@ variable "gcp_region" {
   type        = string
   default     = "us-central1"
 }
+
+variable "node_count" {
+  description = "The number of nodes in the Kubernetes cluster"
+  type        = number
+  default     = 3
+}
+
+variable "name" {
+  description = "The name of the Kubernetes cluster"
+  type        = string
+}

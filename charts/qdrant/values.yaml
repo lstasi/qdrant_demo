@@ -126,7 +126,6 @@ topologySpreadConstraints: []
 
 persistence:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: gp2
   size: 1Gi
   annotations: {}
   # storageVolumeName: qdrant-storage

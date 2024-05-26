@@ -46,8 +46,8 @@ helm install qdrant ../charts/qdrant/ -n qdrant-services --set replicaCount=3
 Get Load Balancer URL
 > kubectl get svc/istio-ingressgateway -n istio-system
 ```
-NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                                      AGE
-istio-ingressgateway   LoadBalancer   10.100.125.183   ab03c3577b4264a8bb1c88097492f7af-1071150399.us-east-1.elb.amazonaws.com   15021:30173/TCP,80:32022/TCP,443:32477/TCP   2m39s
+NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                                      AGE
+istio-ingressgateway   LoadBalancer   10.100.125.183   34.41.172.168   15021:30173/TCP,80:32022/TCP,443:32477/TCP   2m39s
 ```
 Qdrant-demo URL
 > export QDRANT_DEMO_URL=\`kubectl get svc/istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}'\`

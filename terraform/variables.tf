@@ -13,3 +13,18 @@ variable "user_arn" {
   type        = string
   default     = ""
 }
+variable "gcp_project" {
+  description = "The GCP project to deploy resources"
+  type        = string
+  default     = "qdrant-eks"
+}
+variable "gcp_region" {
+  description = "The GCP region to deploy resources"
+  type        = string
+  default     = "us-central1"
+}
+variable "gcp_zone" {
+  description = "The GCP zone to deploy resources"
+  type        = string
+  default     = "us-central1-c"
+}

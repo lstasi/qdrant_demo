@@ -6,6 +6,18 @@ module "aws_k8s" {
   min_capacity     = 3
   user_arn         = var.user_arn
 }
+module "azure_k8s" {
+  source     = "./azure"
+  name       = var.name
+  node_count = 3
+}
+module "gcp_k8s" {
+  source      = "./gcp"
+  gcp_project = var.gcp_project
+  gcp_region  = var.gcp_region
+  name        = var.name
+  node_count  = 1
+}
 /*
 module "helm_module" {
   source     = "./helm_module"

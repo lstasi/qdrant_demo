@@ -1,29 +1,17 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=2.48.0"
-    }
-  }
-}
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_resource_group" "rg" {
-  name     = "learnk8sResourceGroup"
+  name     = var.name
   location = "northeurope"
 }
 
 resource "azurerm_kubernetes_cluster" "cluster" {
-  name                = "learnk8scluster"
+  name                = var.name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = "learnk8scluster"
+  dns_prefix          = var.name
 
   default_node_pool {
     name       = "default"
-    node_count = "2"
+    node_count = var.node_count
     vm_size    = "standard_d2_v2"
   }
 
