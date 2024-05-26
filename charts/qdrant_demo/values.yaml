@@ -1,8 +1,8 @@
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: lsk242/qdrant-demo
-  tag: latest
+  tag: 0.1
   pullPolicy: IfNotPresent
 
 service:

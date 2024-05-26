@@ -37,7 +37,7 @@ For Congnito add
 
 From Terraform folder
 
-```
+```bash
 terraform init
 terraform plan
 ```
@@ -58,8 +58,8 @@ Update Kube Config
 
 Install Istio with istioctl
 
-```
-istioctl install -y --set meshConfig.accessLogFile=/dev/stdout
+```bash
+istioctl install -y
 ```
 
 ## Application Deployment
@@ -70,7 +70,7 @@ Install Qdrant DB and Nueral Search
 kubectl create namespace qdrant-services
 kubectl label namespace qdrant-services istio-injection=enabled
 helm install qdrant-demo ../charts/qdrant_demo -n qdrant-services
-helm install qdrant ../charts/qdrant/ -n qdrant-services --set replicaCount 3
+helm install qdrant ../charts/qdrant/ -n qdrant-services --set replicaCount=3
 ```
 
 ## Application access
@@ -82,7 +82,7 @@ NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP              
 istio-ingressgateway   LoadBalancer   10.100.125.183   ab03c3577b4264a8bb1c88097492f7af-1071150399.us-east-1.elb.amazonaws.com   15021:30173/TCP,80:32022/TCP,443:32477/TCP   2m39s
 ```
 Qdrant-demo URL
-> export QDRANT_DEMO_URL=`kubectl get svc/istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'`
+> export QDRANT_DEMO_URL=\`kubectl get svc/istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'\`
 
 Check the application accessing QDRANT_DEMO_URL
 > echo "http://${QDRANT_DEMO_URL}/"
@@ -141,9 +141,19 @@ terraform plan
 terraform apply
 ```
 
-Start Application Locally
+### Export Qdrant Ports
 
 ```
-cd ../../
-docker compose up -d
+istioctl install -y -f ../charts/istio_extra/istio_extra_ports.yml
 ```
+
+Deploy Request Authentication
+```
+kubectl apply -f ../charts/istio_extra/request_auth.yml
+```
+
+Check using Authorization header with id_token
+
+```
+curl -i http://a8679f72056d24ca9b62f22bedb95216-1029495632.us-east-1.elb.amazonaws.com:6333/ \
+    -H "Authorization: Bearer eyJraWQiOiJDeVZRRUdyeDM3WjYzZDg3S3hVXC82UFFPUGo3dkEwNGdHNFwvMDZXUnB6Z289IiwiYWxnIjoiUlMyNTYifQ.eyJhdF9oYXNoIjoiRmNUelJhbFl3MUw5bHJpdjQ0bVpDdyIsInN1YiI6ImQ0NzhkNDc4LTMwZDEtNzAxMi03MTRhLTU3NzUzZmY5OGM4YyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9rbFNmbEZnb2kiLCJjb2duaXRvOnVzZXJuYW1lIjoiZDQ3OGQ0NzgtMzBkMS03MDEyLTcxNGEtNTc3NTNmZjk4YzhjIiwiYXVkIjoiMWZ2NTZxZmMyMXBmbTBsb3VhMDFkYjZwcjciLCJldmVudF9pZCI6ImNmZDIxYWVmLTc1NGEtNGE0YS1hZjI4LWFlNDI5NTI3YmFjMiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzE2NjgwNTc0LCJleHAiOjE3MTY2ODQxNzQsImlhdCI6MTcxNjY4MDU3NCwianRpIjoiNWFjNTdlODktN2Y2My00ZDQ5LTljYTAtNTBmYjE3ODllNWM0IiwiZW1haWwiOiJsZWFuZHJvLnN0YXNpQGdtYWlsLmNvbSJ9.fvBrlJdQPNX5SxmOXgWC8RErXq-zlADRFO_GzydxvwEdGgMBkPN4Zsq44czWK3KflJaO8o7zOpYaXDJjknhZWEgTzsTR2kUVes7NU2YIUCr66iJ53-evGYiGhF1Kyu3JjPErMeRnfrkdNf-EtDP5c6udUaktYkxft_2tG9O-f5NQ66L7m0tXVt0KjeRfDZyqmpFMJTAGmAKUxAwdjJRSe_7K_LU92Rts7at85EfVBebZ4178PZQcNFoL1rRifkVcH5RPNq_Zdr_l3QJOvI67UrTQjxox6zW6l2BYwsS72X11WBtoEDcusK37qBxO4OXUOt92A5xI4zJ4KAo1zM8B0Q"

@@ -12,6 +12,7 @@ __pycache__
 *.tfstate
 *.tfstate.backup
 *.tfvars
+*.terraform.tfstate.lock.info
 crash.log
 
 # Helm
