@@ -1,4 +1,4 @@
-# Neural search demo Cloud deployment
+# Neural search demo Cloud deployment AWS
 
 ## Requirements
 
