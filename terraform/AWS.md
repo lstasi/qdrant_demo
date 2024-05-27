@@ -12,7 +12,7 @@
 
 To create an EKS module using Terraform, the AWS user needs the following IAM policies:
 
->|this permissions are not recommended for a production environment
+> this permissions are not recommended for a production environment
 
 - AmazonEC2FullAccess: Allows full access to Amazon EC2.
 - AmazonRoute53FullAccess: Allows full access to Amazon Route 53.
@@ -44,16 +44,18 @@ terraform plan
 
 Create EKS Cluster
 
+```bash
 > terraform apply -target module.aws_k8s
+```
 
 Run Export from output
-
+```
 > export KUBERNETES_MASTER=qdrant-demo
-
+```
 Update Kube Config
-
+```
 > aws eks update-kubeconfig --region us-east-1 --name $KUBERNETES_MASTER
-
+```
 ## Service Mesh Deployment
 
 Install Istio with istioctl
@@ -76,17 +78,22 @@ helm install qdrant ../charts/qdrant/ -n qdrant-services --set replicaCount=3
 ## Application access
 
 Get Load Balancer URL
+```
 > kubectl get svc/istio-ingressgateway -n istio-system
+```
 ```
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                                      AGE
 istio-ingressgateway   LoadBalancer   10.100.125.183   ab03c3577b4264a8bb1c88097492f7af-1071150399.us-east-1.elb.amazonaws.com   15021:30173/TCP,80:32022/TCP,443:32477/TCP   2m39s
 ```
 Qdrant-demo URL
+```
 > export QDRANT_DEMO_URL=\`kubectl get svc/istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'\`
+```
 
 Check the application accessing QDRANT_DEMO_URL
+```
 > echo "http://${QDRANT_DEMO_URL}/"
-
+```
 
 ## Service Mesh Addons
 Deploy Obervability Addons
@@ -121,7 +128,9 @@ kubectl port-forward svc/qdrant 6334:6334 -n qdrant-services
 Access qdrant-demo app to upload data
 
 Shell into pod
+```
 > kubectl exec --stdin --tty svc/qdrant-demo -n qdrant-services -- /bin/bash
+```
 
 Inside the pod or local using port-forward, both 6333 and 6334
 
