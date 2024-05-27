@@ -23,6 +23,6 @@ resource "google_container_cluster" "gke" {
   deletion_protection = false
 
   node_config {
-    machine_type = "e2-medium"
+    machine_type = var.machine_type
   }
 }

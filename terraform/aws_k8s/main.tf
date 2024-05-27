@@ -43,7 +43,7 @@ module "eks" {
       max_size     = var.max_capacity
       min_size     = var.min_capacity
 
-      instance_types               = ["m5n.large"]
+      instance_types               = [var.instance_type]
       capacity_type                = "SPOT"
       iam_role_additional_policies = { AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" }
     }

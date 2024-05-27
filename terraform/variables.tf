@@ -13,6 +13,16 @@ variable "user_arn" {
   type        = string
   default     = ""
 }
+variable "instance_type" {
+  description = "The instance type of the autoscaling group"
+  type        = string
+  default     = "m5.large"
+}
+variable "vm_size" {
+  description = "The size of the VMs in the Kubernetes cluster"
+  type        = string
+  default     = "Standard_DS2_v2"
+}
 variable "gcp_project" {
   description = "The GCP project to deploy resources"
   type        = string
@@ -27,4 +37,9 @@ variable "gcp_zone" {
   description = "The GCP zone to deploy resources"
   type        = string
   default     = "us-central1-c"
+}
+variable "machine_type" {
+  description = "The machine type of the nodes in the Kubernetes cluster"
+  type        = string
+  default     = "e2-medium"
 }

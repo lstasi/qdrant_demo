@@ -23,3 +23,8 @@ variable "min_capacity" {
   type        = number
   default     = 2
 }
+variable "instance_type" {
+  description = "The instance type of the autoscaling group"
+  type        = string
+  default     = "m5.large"
+}

@@ -14,3 +14,8 @@ variable "node_count" {
   type        = number
   default     = 3
 }
+variable "vm_size" {
+  description = "The size of the VMs in the Kubernetes cluster"
+  type        = string
+  default     = "Standard_DS2_v2"
+}

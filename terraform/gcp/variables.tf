@@ -20,3 +20,9 @@ variable "name" {
   description = "The name of the Kubernetes cluster"
   type        = string
 }
+
+variable "machine_type" {
+  description = "The machine type of the nodes in the Kubernetes cluster"
+  type        = string
+  default     = "e2-medium"
+}
