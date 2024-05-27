@@ -25,8 +25,8 @@ resource "helm_release" "istiod" {
 }
 
 resource "helm_release" "istio-ingress" {
-  name             = "istio-ingress"
-  namespace        = "istio-ingress"
-  chart            = "../charts/istio/gateway"
-  depends_on       = [helm_release.istiod, kubernetes_namespace.istio-ingress]
+  name       = "istio-ingress"
+  namespace  = "istio-ingress"
+  chart      = "../charts/istio/gateway"
+  depends_on = [helm_release.istiod, kubernetes_namespace.istio-ingress]
 }
