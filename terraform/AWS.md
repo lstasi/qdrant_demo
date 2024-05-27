@@ -44,7 +44,7 @@ terraform plan
 
 Create EKS Cluster
 
-> terraform apply
+> terraform apply -target module.aws_k8s
 
 Run Export from output
 
