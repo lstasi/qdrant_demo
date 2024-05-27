@@ -1,0 +1,26 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: "jwt-auth"
+  namespace: qdrant-services
+spec:
+  selector:
+    matchLabels:
+      app: qdrant
+  jwtRules:
+  - issuer: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_klSflFgoi"
+    jwksUri: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_klSflFgoi/.well-known/jwks.json"
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: jwt-auth
+  namespace: qdrant-services
+spec:
+  selector:
+    matchLabels:
+      app: qdrant
+  rules:
+  - from:
+    - source:
+        requestPrincipals: ["*"]
