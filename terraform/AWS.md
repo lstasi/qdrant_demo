@@ -136,7 +136,7 @@ Inside the pod or local using port-forward, both 6333 and 6334
 
 ```
 wget https://storage.googleapis.com/generall-shared-data/startups_demo.json -P data/
-python -m qdrant-demo.init_collection_startups
+python -m qdrant_demo.init_collection_startups
 ```
 
 ## Setup Authentication with JWT
